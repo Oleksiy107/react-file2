@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom";
 import Header from "./header.jsx";
-import Main from "./main.jsx";
+import Main from "./Main.jsx";
 import "./sass/header.scss";
 import "./sass/main.scss";
 const rootEl = document.getElementById("root");

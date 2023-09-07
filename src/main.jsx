@@ -1,54 +1,62 @@
-import React from "react";
+import React, { Component } from "react";
 import "./sass/main.scss";
-function Main() {
-    const resetBtn = document.getElementById("btnReset");
 
-  function minusClick() {
-    const showNumber = document.getElementById("showNumber");
-    let currentNumber = parseInt(showNumber.innerHTML);
-    currentNumber--;
-    showNumber.innerHTML = currentNumber;
+class Main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentNumber: props.initialValue || 0,
+    };
   }
-  function plusClick() {
-    let currentNumber = parseInt(showNumber.innerHTML);
-    currentNumber++;
-    showNumber.innerHTML = currentNumber;
-  }
-  function resetClick() {
-    showNumber.innerHTML = `0`;
-  }
-  return (
-    <main className="main">
-      <div className="main__box-clicker box-clicker">
-        <button
-          className="box-clicker__minus"
-          id="clickMinus"
-          onClick={minusClick}
-        >
-          -
-        </button>
-        <div className="box-clicker__inner">
-          <p className="box-clicker__number" id="showNumber">
-            0
-          </p>
+  minus = () => {
+    this.setState((prevState) => ({
+      currentNumber: prevState.currentNumber - 1,
+    }));
+  };
+  plus = () => {
+    this.setState((prevState) => ({
+      currentNumber: prevState.currentNumber + 1,
+    }));
+  };
+  result = () => {
+    this.setState({
+      currentNumber: 0,
+    });
+  };
+  render() {
+    const { currentNumber } = this.state;
+    return (
+      <div className="main">
+        <div className="main__box-clicker box-clicker">
           <button
-            className="box-clickerbtn-reset"
-            id="btnReset"
-            onClick={resetClick}
+            className="box-clicker__minus"
+            id="clickMinus"
+            onClick={this.minus}
           >
-            Reset
+            -
+          </button>
+          <div className="box-clicker__inner">
+            <p className="box-clicker__number" id="showNumber">
+              {currentNumber}
+            </p>
+            <button
+              className="box-clickerbtn-reset"
+              id="btnReset"
+              onClick={this.result}
+            >
+              Reset
+            </button>
+          </div>
+          <button
+            className="box-clicker__plus"
+            id="clickPlus"
+            onClick={this.plus}
+          >
+            +
           </button>
         </div>
-        <button
-          className="box-clicker__plus"
-          id="clickPlus"
-          onClick={plusClick}
-        >
-          +
-        </button>
       </div>
-    </main>
-  );
+    );
+  }
 }
-
 export default Main;
